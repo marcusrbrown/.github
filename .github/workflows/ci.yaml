@@ -16,7 +16,7 @@ jobs:
         file:
           - default
           - renovate-config
-          - .github/renovate.json
+          - .github/renovate
     env:
       RENOVATE_CONFIG_FILE: ${{ matrix.file }}.json
 
