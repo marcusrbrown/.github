@@ -1,7 +1,8 @@
 name: ci
 
 on:
-  push: [main]
+  push:
+    branches: [main]
   pull_request:
 
 env:
