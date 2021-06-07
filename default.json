@@ -1,10 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Default preset used for all `marcusrbrown` repositories",
-  "extends": [
-    "github>bfra-me/renovate-config"
-  ],
-  "assignees": [
-    "marcusrbrown"
-  ]
+  "description": "Default preset used for all `@marcusrbrown` repositories",
+  "extends": ["github>bfra-me/renovate-config", ":automergePr"],
+  "assignees": ["marcusrbrown"]
 }
