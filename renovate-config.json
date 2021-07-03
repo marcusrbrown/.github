@@ -1,7 +1,0 @@
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Onboarding preset used for all `marcusrbrown` repositories",
-  "extends": [
-    "github>marcusrbrown/.github"
-  ]
-}
