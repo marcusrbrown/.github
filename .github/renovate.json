@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>marcusrbrown/.github"
+    "local>marcusrbrown/.github:personal"
   ]
 }

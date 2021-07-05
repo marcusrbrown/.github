@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Marcus' personal config presets",
+  "extends": [
+    "local>marcusrbrown/.github",
+    ":timezone(America/Phoenix)",
+    ":automergeBranch",
+    ":assignAndReview(@marcusrbrown)"
+  ]
+}
