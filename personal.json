@@ -4,7 +4,16 @@
   "extends": [
     "local>marcusrbrown/.github",
     ":timezone(America/Phoenix)",
+    ":assignAndReview(@marcusrbrown)",
+    ":gitSignOff",
     ":automergeBranch",
-    ":assignAndReview(@marcusrbrown)"
-  ]
+    ":updateNotScheduled"
+  ],
+  "ignorePresets": [
+    ":prConcurrentLimit20"
+  ],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
+  "printConfig": true
 }
