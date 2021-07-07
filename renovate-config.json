@@ -1,10 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "onboardingConfigFileName": ".github/renovate.json",
-  "onboardingConfig": {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "local>marcusrbrown/.github:personal"
-    ]
-  }
+  "extends": [
+    "local>marcusrbrown/.github:personal"
+  ]
 }
