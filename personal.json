@@ -5,7 +5,6 @@
     "local>marcusrbrown/.github",
     ":timezone(America/Phoenix)",
     ":assignAndReview(@marcusrbrown)",
-    ":gitSignOff",
     ":automergeBranch",
     ":updateNotScheduled"
   ],
