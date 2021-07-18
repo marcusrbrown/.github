@@ -85,8 +85,10 @@ repository:
 collaborators:
   - username: fro-bot
     permission: admin
+
   # - username: bkeepers
   #   permission: push
+
   # - username: hubot
   #   permission: pull
 
@@ -108,11 +110,12 @@ collaborators:
 #     # * `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
 #     # * `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
 #     permission: admin
+
 #   - name: docs
 #     permission: push
 
 branches:
-  - name: master
+  - name: main
     # https://docs.github.com/en/rest/reference/repos#update-branch-protection
     # Branch Protection settings. Set to null to disable
     protection:
@@ -120,36 +123,56 @@ branches:
       required_pull_request_reviews: null
         # The number of approvals required. (1-6)
         # required_approving_review_count: 1
+
         # Dismiss approved reviews automatically when a new commit is pushed.
         # dismiss_stale_reviews: true
+
         # Blocks merge until code owners have reviewed.
         # require_code_owner_reviews: true
+
         # Specify which users and teams can dismiss pull request reviews. Pass an empty dismissal_restrictions object to disable. User and team dismissal_restrictions are only available for organization-owned repositories. Omit this parameter for personal repositories.
         # dismissal_restrictions:
           # users: []
           # teams: []
+
       # Required. Require status checks to pass before merging. Set to null to disable
       required_status_checks:
         # Required. Require branches to be up to date before merging.
         strict: true
         # Required. The list of status checks to require in order to merge into this branch
         contexts: []
+
       # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
       enforce_admins: true
+
       # Prevent merge commits from being pushed to matching branches
       required_linear_history: true
+
       # Permits force pushes to the protected branch by anyone with write access to the repository. Set to true to allow force pushes. Set to false or null to block force pushes. Default: false.
       # For more information, see "Enabling force pushes to a protected branch" in the GitHub Help documentation.
       # https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch
       # allow_force_pushes: true
+
       # Allows deletion of the protected branch by anyone with write access to the repository. Set to false to prevent deletion of the protected branch. Default: false.
       # For more information, see "Enabling force pushes to a protected branch" in the GitHub Help documentation.
       # https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch
       # allow_deletions: true
+
       # Required. Restrict who can push to this branch. Team and user restrictions are only available for organization-owned repositories. Set to null to disable.
-      restrictions:
-        apps: []
-        users: []
-        teams: []
+      restrictions: null
+        # apps: []
+        # users: []
+        # teams: []
+
       # Requires all conversations on code to be resolved before a pull request can be merged into a branch that matches this rule. Set to false to disable. Default: false.
       # required_conversation_resolution: true
+
+  - name: master
+    protection:
+      required_pull_request_reviews: null
+      required_status_checks:
+        strict: true
+        contexts: []
+      enforce_admins: true
+      required_linear_history: true
+      restrictions: null
