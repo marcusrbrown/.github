@@ -159,10 +159,10 @@ branches:
       # allow_deletions: true
 
       # Required. Restrict who can push to this branch. Team and user restrictions are only available for organization-owned repositories. Set to null to disable.
-      restrictions:
-        apps: []
-        users: []
-        teams: []
+      restrictions: null
+        # apps: []
+        # users: []
+        # teams: []
 
       # Requires all conversations on code to be resolved before a pull request can be merged into a branch that matches this rule. Set to false to disable. Default: false.
       # required_conversation_resolution: true
