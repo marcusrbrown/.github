@@ -1,9 +1,12 @@
-name: ci
+name: Validate Renovate Config
 
 on:
   push:
-    branches: [main]
-  pull_request:
+    branches: [main, renovate/**]
+    paths:
+      - "default.json"
+      - "personal.json"
+      - "**/renovate*.json"
 
 env:
   LOG_LEVEL: debug
@@ -19,7 +22,8 @@ jobs:
           - default
           - personal
           - renovate-config
-          - .github/renovate
+          # .github/renovate.json is validated by `renovate` during loading for each preset.
+          # - .github/renovate
     env:
       RENOVATE_CONFIG_FILE: ${{ matrix.file }}.json
 
