@@ -115,7 +115,7 @@ collaborators:
 #     permission: push
 
 branches:
-  - name: master
+  - name: main
     # https://docs.github.com/en/rest/reference/repos#update-branch-protection
     # Branch Protection settings. Set to null to disable
     protection:
@@ -166,3 +166,13 @@ branches:
 
       # Requires all conversations on code to be resolved before a pull request can be merged into a branch that matches this rule. Set to false to disable. Default: false.
       # required_conversation_resolution: true
+
+  - name: master
+    protection:
+      required_pull_request_reviews: null
+      required_status_checks:
+        strict: true
+        contexts: []
+      enforce_admins: true
+      required_linear_history: true
+      restrictions: null
