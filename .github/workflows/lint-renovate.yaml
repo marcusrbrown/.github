@@ -1,18 +1,20 @@
-name: Validate Renovate Config
+name: ci
 
 on:
   push:
     branches: [main, renovate/**]
-    paths:
-      - "default.json"
-      - "personal.json"
-      - "**/renovate*.json"
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 env:
   LOG_LEVEL: debug
 
 jobs:
-  preset:
+  lint-renovate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
