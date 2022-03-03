@@ -3,5 +3,6 @@
   "description": "Onboarding config preset used for @marcusrbrown repositories",
   "extends": ["github>marcusrbrown/.github"],
   "onboardingConfigFileName": ".github/renovate.json",
+  "onboardingPrTitle": "feat: configure Renovate",
   "printConfig": true
 }
