@@ -7,7 +7,7 @@
     "description": "Use {{repository}} repository preset config",
     "extends": [
       "local>marcusrbrown/.github"
-    ],
+    ]
   },
   "onboardingConfigFileName": ".github/renovate.json",
   "onboardingPrTitle": "feat: configure Renovate",
