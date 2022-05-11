@@ -1,0 +1,5 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Use temporary <code>@marcusrbrown/.github</code> <strong>renovate-config</strong> config preset to help migrate to <code>marcusrbrown/renovate-config</code>",
+  "extends": "github>marcusrbrown/renovate-config"
+}
