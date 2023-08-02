@@ -225,13 +225,13 @@ branches:
         # Required. Require branches to be up to date before merging.
         strict: true
         # Deprecated: The list of status checks to require in order to merge into this branch. If any of these checks have recently been set by a particular GitHub App, they will be required to come from that app in future for the branch to merge. Use checks instead of contexts for more fine-grained control.
-        contexts: []
+        contexts: ['Lint']
         # The list of status checks to require in order to merge into this branch.
         checks:
           # The name of the required check.
-          - context: Lint
-        #     # The ID of the GitHub App that must provide this check. Omit this field to automatically select the GitHub App that has recently provided this check, or any app if it was not set by a GitHub App. Pass -1 to explicitly allow any app to set the status.
-        #     app_id: -1
+          - context: 'Lint'
+            # The ID of the GitHub App that must provide this check. Omit this field to automatically select the GitHub App that has recently provided this check, or any app if it was not set by a GitHub App. Pass -1 to explicitly allow any app to set the status.
+            app_id: 15368 # GitHub Actions
 
       # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
       enforce_admins: true
