@@ -6,6 +6,7 @@ name: Update Repository Settings
   push:
     branches: [main]
     paths:
+      - 'common-settings.yaml'
       - '.github/settings.yml'
       - '.github/workflows/update-repo-settings.yaml'
   schedule:
