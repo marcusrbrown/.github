@@ -10,10 +10,6 @@ overrides:
       singleQuote: false
       trailingComma: none
   - files:
-      - '*.json5'
-    options:
-      parser: json
-  - files:
       - '.vscode/*.json'
     options:
       tabWidth: 4
