@@ -13,7 +13,7 @@ name: Renovate
       - '.github/workflows/renovate.yaml'
       - '.github/renovate.json5?'
   schedule:
-    - cron: '0 */30 * * *' # Run every 30 minutes
+    - cron: '*/30 * * * *' # Run every 30 minutes
   workflow_dispatch:
     inputs:
       print_config:
