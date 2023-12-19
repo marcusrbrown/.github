@@ -1,5 +1,5 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   description: 'Use the config preset for the .github repository',
-  extends: ['github>marcusrbrown/renovate-config#v1.15.0', 'github>bfra-me/renovate-config:automerge/prForCI#v2.2.4'],
+  extends: ['github>marcusrbrown/renovate-config#v1.15.0', 'github>bfra-me/renovate-config:automerge/prForCI#v2.3.0'],
 }
