@@ -77,6 +77,7 @@ jobs:
         with:
           autodiscover: true
           branch: ${{ github.ref != 'refs/heads/main' && github.ref_name || '' }}
+          cache: false
           dry_run: ${{ needs.should-renovate.outputs.dry-run }}
           print_config: ${{ inputs.print_config || 'false' }}
           renovate_app_id: ${{ secrets.APPLICATION_ID }}
