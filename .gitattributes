@@ -1,3 +1,13 @@
-# Auto detect text files and perform LF normalization
-# http://davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 * text=auto
+
+*.md            text diff=markdown
+*.json          text linguist-language=JSON-with-comments
+*.json5         text
+*.yaml          text
+*.yml           text
+
+.editorconfig   text
+.gitattributes  text export-ignore
+.gitignore      text export-ignore
+
+.vscode/*       text

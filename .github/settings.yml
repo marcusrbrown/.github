@@ -10,8 +10,8 @@ branches:
   - name: main
     protection:
       required_status_checks:
-        strict: true
-        contexts: ['Lint']
+        strict: false
+        contexts: ['Lint', 'Renovate', 'Update Repository Settings']
       enforce_admins: true
       required_pull_request_reviews: null
       restrictions: null
