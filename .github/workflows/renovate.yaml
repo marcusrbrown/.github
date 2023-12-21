@@ -75,7 +75,7 @@ jobs:
       - name: Renovate
         uses: bfra-me/renovate-action@d6d1f148f765ad783ef29005e44b1917ce76db42 # v2.2.4
         with:
-          autodiscover: true
+          autodiscover: ${{ github.ref != 'refs/heads/main' && 'false' || 'true' }}
           branch: ${{ github.ref != 'refs/heads/main' && github.ref_name || '' }}
           dry_run: ${{ needs.should-renovate.outputs.dry-run }}
           print_config: ${{ inputs.print_config || 'false' }}
