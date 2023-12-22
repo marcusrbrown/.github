@@ -26,8 +26,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  should-renovate:
-    name: Check if Renovate should run
+  renovate:
     if: >-
       (github.event_name != 'issues' && github.event_name != 'pull_request') ||
       (
@@ -45,31 +44,24 @@ jobs:
         contains(join(github.event.*.body, ''), '- [x] <!-- unlimit-branch=') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- unschedule-branch=')
       )
-    outputs:
-      renovate: ${{ steps.create-output.outputs.renovate }}
+    name: Renovate
     runs-on: ubuntu-latest
     steps:
       - if: github.event_name == 'push'
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - if: github.event_name == 'push'
+      - id: filter
+        if: github.event_name == 'push'
         uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
-        id: filter
         with:
           filters: |
             changes:
               - '.github/workflows/renovate.yaml'
               - '.github/renovate.json5'
-      - id: create-output
+      - id: should-renovate
         if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
         run: echo 'renovate=true' >> $GITHUB_OUTPUT
-
-  renovate:
-    if: needs.should-renovate.outputs.renovate == 'true'
-    name: Renovate
-    needs: should-renovate
-    runs-on: ubuntu-latest
-    steps:
       - name: Renovate
+        if: steps.should-renovate.outputs.renovate == 'true'
         uses: bfra-me/renovate-action@6dc559aa46519a99c6cf514ed1de180956067643 # v2.2.5
         with:
           autodiscover: ${{ !contains('["issues", "pull_request"]', github.event_name) && github.ref == 'refs/heads/main' }}
