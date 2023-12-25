@@ -10,7 +10,7 @@ name: Renovate
   push:
     branches: ['**']
   schedule:
-    - cron: '*/30 * * * *' # Run every 30 minutes
+    - cron: '0 * * * *' # Run every hour
   workflow_dispatch:
     inputs:
       print_config:
