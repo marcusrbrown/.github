@@ -62,7 +62,7 @@ jobs:
         run: echo 'renovate=true' >> $GITHUB_OUTPUT
       - name: Renovate
         if: steps.should-renovate.outputs.renovate == 'true'
-        uses: bfra-me/renovate-action@f7f0b9773ab375076917c2c05c9f678b3a10dffb # v2.3.2
+        uses: bfra-me/renovate-action@5fec50022c58053f9e2cf7e205c773ed9296c3f2 # v2.4.0
         with:
           autodiscover: ${{ !contains('["issues", "pull_request"]', github.event_name) && github.ref == 'refs/heads/main' }}
           branch: ${{ github.ref != 'refs/heads/main' && github.ref_name || '' }}
