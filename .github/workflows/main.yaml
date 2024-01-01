@@ -3,14 +3,10 @@ name: main
 
 'on':
   pull_request:
-    branches: [main]
   push:
-    branches: [main]
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
+concurrency: ${{ github.workflow }}-${{ github.event.number || github.ref }}
 
 permissions:
   contents: read
