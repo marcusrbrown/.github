@@ -1,30 +1,38 @@
 # Update repository settings to match the definitions in .github/settings.yml.
 ---
-name: Update Repository Settings
+name: Update Repo Settings
 
 'on':
   push:
+    branches: [main]
   schedule:
-    - cron: '15 14 * * *' # Every day at 14:15 UTC
+    - cron: '55 2 * * *' # Every day at 02:55 UTC
+  workflow_call:
+    secrets:
+      APPLICATION_ID:
+        description: GitHub App ID
+        required: true
+      APPLICATION_PRIVATE_KEY:
+        description: GitHub App private key
+        required: true
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   update-repo-settings:
     name: Update Repository Settings
     runs-on: ubuntu-latest
     steps:
-      - if: github.event_name == 'push' && github.ref =='refs/heads/main'
+      - if: github.event_name == 'push'
         name: Checkout Repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - id: filter
-        if: github.event_name == 'push' && github.ref =='refs/heads/main'
+        if: github.event_name == 'push'
         name: Filter Changed Files
         uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
         with:
@@ -46,5 +54,5 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
         if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        name: Update Repository Settings (${{ github.repository_owner }}/.github)
-        uses: elstudio/actions-settings@v3-beta
+        name: Update Repository Settings (${{ github.repository }})
+        uses: elstudio/actions-settings@2c3fbed35fa2692a1625b1360de608906fc5c103 # v3-beta
