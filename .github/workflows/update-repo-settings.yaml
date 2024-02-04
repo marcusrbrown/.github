@@ -7,52 +7,12 @@ name: Update Repo Settings
     branches: [main]
   schedule:
     - cron: '55 2 * * *' # Every day at 02:55 UTC
-  workflow_call:
-    secrets:
-      APPLICATION_ID:
-        description: GitHub App ID
-        required: true
-      APPLICATION_PRIVATE_KEY:
-        description: GitHub App private key
-        required: true
   workflow_dispatch:
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-permissions:
-  contents: read
 
 jobs:
   update-repo-settings:
-    name: Update Repository Settings
-    runs-on: ubuntu-latest
-    steps:
-      - if: github.event_name == 'push'
-        name: Checkout Repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      - id: filter
-        if: github.event_name == 'push'
-        name: Filter Changed Files
-        uses: dorny/paths-filter@0bc4621a3135347011ad047f9ecf449bf72ce2bd # v3.0.0
-        with:
-          filters: |
-            changes:
-              - 'common-settings.yaml'
-              - '.github/settings.yml'
-              - '.github/workflows/update-repo-settings.yaml'
-
-      - id: get-workflow-access-token
-        if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3 # v3.0.0
-        name: Get Workflow Access Token
-        with:
-          application_id: ${{ secrets.APPLICATION_ID }}
-          application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-          permissions: 'administration:write, contents:read, issues:write'
-
-      - env:
-          GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
-        if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        name: Update Repository Settings (${{ github.repository }})
-        uses: elstudio/actions-settings@2c3fbed35fa2692a1625b1360de608906fc5c103 # v3-beta
+    name: Update Repo Settings
+    secrets:
+      APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+      APPLICATION_PRIVATE_KEY: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+    uses: bfra-me/.github/.github/workflows/update-repo-settings.yaml@09e09ef28201e85f995d4a69d33d70f153f80c0e # v1.1.1
