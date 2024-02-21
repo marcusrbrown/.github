@@ -20,8 +20,8 @@ name: Renovate
         default: false
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'push' && github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
@@ -58,14 +58,20 @@ jobs:
             changes:
               - '.github/workflows/renovate.yaml'
               - '.github/renovate.json5'
-      - if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        name: Renovate
-        uses: bfra-me/renovate-action@2fb3b81bf757ed09aa275906164bcc93d60940f6 # v2.8.0
-        with:
-          autodiscover: ${{ !contains('["issues", "pull_request"]', github.event_name) && github.ref == 'refs/heads/main' }}
-          branch: ${{ github.ref != 'refs/heads/main' && github.ref_name || '' }}
-          cache: ${{ contains('["push", "schedule", "workflow_dispatch"]', github.event_name) && github.ref == 'refs/heads/main' || startsWith(github.ref_name, 'renovate/') }}
+      - env:
+          autodiscover: >-
+            ${{ github.event.repository.name == '.github' && !contains('["issues", "pull_request"]', github.event_name) && github.ref == 'refs/heads/main' }}
+          cache: >-
+            ${{ !contains('["issues", "pull_request"]', github.event_name) && github.ref == 'refs/heads/main' || startsWith(github.ref_name, 'renovate/') }}
           dry_run: ${{ github.event_name == 'push' && github.ref != 'refs/heads/main' }}
+        if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
+        name: Renovate
+        uses: bfra-me/renovate-action@5977393cb0cb0ae83c846b31a131077053f7a0ea # v3.0.3
+        with:
+          autodiscover: ${{ env.autodiscover }}
+          branch: ${{ env.dry_run == 'true' && github.ref_name || '' }}
+          cache: ${{ env.cache }}
+          dry_run: ${{ env.dry_run }}
           print_config: ${{ inputs.print_config }}
           renovate_app_id: ${{ secrets.APPLICATION_ID }}
           renovate_app_pem: ${{ secrets.APPLICATION_PRIVATE_KEY }}
