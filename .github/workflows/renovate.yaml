@@ -27,5 +27,6 @@ jobs:
       APPLICATION_PRIVATE_KEY: ${{ secrets.APPLICATION_PRIVATE_KEY }}
     uses: bfra-me/.github/.github/workflows/renovate.yaml@v1
     with:
+      log_level: debug
       print_config: ${{ inputs.print_config || false }}
       renovate_app_slug: 'mrbro-bot'
