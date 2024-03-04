@@ -1,5 +1,5 @@
 ---
-# Renovate this repository if Renovate-specific tasks are checked, if this workflow file or the Renovate configuration file is changed, or if dispatched.
+# Renovate this repository if Renovate-specific tasks are checked or if dispatched.
 name: Renovate
 
 'on':
@@ -11,22 +11,93 @@ name: Renovate
     branches: ['**']
   schedule:
     - cron: '0 * * * *' # Run every hour
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      print_config:
+      github-app-slug:
+        description: GitHub App slug
+        type: string
+      log-level:
+        description: Log level for Renovate
+        type: string
+        default: 'debug'
+      print-config:
         description: Log the fully-resolved Renovate config for each repository, plus fully-resolved presets.
-        required: false
         type: boolean
         default: false
+    secrets:
+      APPLICATION_ID:
+        description: GitHub App ID
+        required: true
+      APPLICATION_PRIVATE_KEY:
+        description: GitHub App private key
+        required: true
+  workflow_dispatch:
+    inputs:
+      log-level:
+        description: Log level for Renovate
+        type: string
+        default: 'debug'
+      print-config:
+        description: Log the fully-resolved Renovate config for each repository, plus fully-resolved presets.
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.run_number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   renovate:
     name: Renovate
-    secrets:
-      APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
-      APPLICATION_PRIVATE_KEY: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-    uses: bfra-me/.github/.github/workflows/renovate.yaml@v1
-    with:
-      log_level: debug
-      print_config: ${{ inputs.print_config || false }}
-      renovate_app_slug: 'mrbro-bot'
+    if: >-
+      (github.event_name != 'issues' && github.event_name != 'pull_request') ||
+      (
+        contains(join(github.event.*.body, ''), '- [x] <!-- approve-all-pending-prs -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- approve-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- approvePr-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- create-all-rate-limited-prs -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- manual job -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- other-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- rebase-all-open-prs -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- rebase-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- rebase-check -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- recreate-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- retry-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- unlimit-branch=') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- unschedule-branch=')
+      )
+    env:
+      WORKFLOW_LOG_LEVEL: debug
+    runs-on: ubuntu-latest
+    steps:
+      - if: github.event_name == 'push'
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - id: filter
+        if: github.event_name == 'push'
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        with:
+          filters: |
+            changes:
+              - '.github/workflows/renovate.yaml'
+              - '.github/renovate.json5'
+      - name: Renovate
+        env:
+          autodiscover: >-
+            ${{ github.event.repository.name == '.github' && !contains('["issues", "pull_request"]', github.event_name) && github.ref_name == github.event.repository.default_branch }}
+          dry_run: ${{ github.event_name == 'push' && github.ref_name != github.event.repository.default_branch }}
+        if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
+        uses: bfra-me/renovate-action@v3
+        with:
+          autodiscover: ${{ env.autodiscover }}
+          branch: ${{ env.dry_run == 'true' && github.ref_name || '' }}
+          cache: true
+          dry_run: ${{ env.dry_run }}
+          log_level: ${{ inputs.log-level || env.WORKFLOW_LOG_LEVEL }}
+          print_config: ${{ inputs.print-config || github.event_name == 'push' }}
+          renovate_app_id: ${{ secrets.APPLICATION_ID }}
+          renovate_app_pem: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+          renovate_app_slug: ${{ inputs.github-app-slug || github.repository_owner == 'marcusrbrown' && 'mrbro-bot' || github.repository_owner }}
+    timeout-minutes: 15
