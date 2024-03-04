@@ -25,10 +25,10 @@ name: Renovate
         type: boolean
         default: false
     secrets:
-      github-app-id:
+      APPLICATION_ID:
         description: GitHub App ID
         required: true
-      github-app-private-key:
+      APPLICATION_PRIVATE_KEY:
         description: GitHub App private key
         required: true
   workflow_dispatch:
@@ -97,7 +97,7 @@ jobs:
           dry_run: ${{ env.dry_run }}
           log_level: ${{ inputs.log-level || env.WORKFLOW_LOG_LEVEL }}
           print_config: ${{ inputs.print-config || github.event_name == 'push' }}
-          renovate_app_id: ${{ secrets.github-app-id }}
-          renovate_app_pem: ${{ secrets.github-app-private-key }}
+          renovate_app_id: ${{ secrets.APPLICATION_ID }}
+          renovate_app_pem: ${{ secrets.APPLICATION_PRIVATE_KEY }}
           renovate_app_slug: ${{ inputs.github-app-slug || github.repository_owner == 'marcusrbrown' && 'mrbro-bot' || github.repository_owner }}
     timeout-minutes: 15
