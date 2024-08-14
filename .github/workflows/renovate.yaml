@@ -90,7 +90,7 @@ jobs:
           dry_run: ${{ github.event_name == 'push' && github.ref_name != github.event.repository.default_branch }}
           RENOVATE_FORK_PROCESSING: 'disabled'
         if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        uses: bfra-me/renovate-action@ef37417bd2dc94514c823f1374298b1f7f7209d4 # v4.3.2
+        uses: bfra-me/renovate-action@6698751cecd801c8132b98876b285edd04ae6ac0 # v4.3.3
         with:
           autodiscover: ${{ env.autodiscover }}
           branch: ${{ env.dry_run == 'true' && github.ref_name || '' }}
