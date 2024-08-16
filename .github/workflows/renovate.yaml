@@ -90,15 +90,14 @@ jobs:
           dry_run: ${{ github.event_name == 'push' && github.ref_name != github.event.repository.default_branch }}
           RENOVATE_FORK_PROCESSING: 'disabled'
         if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        uses: bfra-me/renovate-action@4bde0a4790dfca46bcb5f72531ec9b4f7e0f83b2 # v4.4.0
+        uses: bfra-me/renovate-action@v4
         with:
           autodiscover: ${{ env.autodiscover }}
           branch: ${{ env.dry_run == 'true' && github.ref_name || '' }}
           cache: true
-          dry_run: ${{ env.dry_run }}
-          log_level: ${{ inputs.log-level || env.WORKFLOW_LOG_LEVEL }}
-          print_config: ${{ inputs.print-config || github.event_name == 'push' }}
-          renovate_app_id: ${{ secrets.APPLICATION_ID }}
-          renovate_app_pem: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-          renovate_app_slug: ${{ inputs.github-app-slug || github.repository_owner == 'marcusrbrown' && 'mrbro-bot' || github.repository_owner }}
-    timeout-minutes: 15
+          dry-run: ${{ env.dry_run }}
+          log-level: ${{ inputs.log-level || env.WORKFLOW_LOG_LEVEL }}
+          print-config: ${{ inputs.print-config || github.event_name == 'push' }}
+          renovate-app-id: ${{ secrets.APPLICATION_ID }}
+          renovate-app-private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+    timeout-minutes: 30
