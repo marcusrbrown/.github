@@ -13,9 +13,6 @@ name: Renovate
     - cron: '0 * * * *' # Run every hour
   workflow_call:
     inputs:
-      github-app-slug:
-        description: GitHub App slug
-        type: string
       log-level:
         description: Log level for Renovate
         type: string
@@ -70,7 +67,7 @@ jobs:
         contains(join(github.event.*.body, ''), '- [x] <!-- unschedule-branch=')
       )
     env:
-      WORKFLOW_LOG_LEVEL: debug
+      WORKFLOW_LOG_LEVEL: ${{ vars.WORKFLOW_LOG_LEVEL || 'debug' }}
     runs-on: ubuntu-latest
     steps:
       - if: github.event_name == 'push'
