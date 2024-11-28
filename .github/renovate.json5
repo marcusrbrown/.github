@@ -1,7 +1,7 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   description: ['Use the config preset for the .github repository'],
-  extends: ['github>marcusrbrown/renovate-config#v2'],
+  extends: ['github>marcusrbrown/renovate-config#v2.4.2'],
   packageRules: [
     {
       description: 'Enable SemVer digest pinning of @bfra-me GitHub actions, reusable workflows, and Renovate config presets.',
