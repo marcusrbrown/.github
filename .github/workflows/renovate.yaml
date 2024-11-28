@@ -38,6 +38,10 @@ name: Renovate
         description: Log the fully-resolved Renovate config for each repository, plus fully-resolved presets.
         type: boolean
         default: false
+  workflow_run:
+    branches: [main]
+    types: [completed]
+    workflows: [main]
 
 concurrency:
   group: ${{ github.repository }}-${{ github.workflow }}-${{ github.run_number || github.ref }}
@@ -51,11 +55,13 @@ jobs:
     name: Renovate
     if: >-
       (github.event_name != 'issues' && github.event_name != 'pull_request') ||
+      (github.event_name != 'issues' && contains(github.event.*.labels.*.name, 'renovate')) ||
       (
         contains(join(github.event.*.body, ''), '- [x] <!-- approve-all-pending-prs -->') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- approve-branch=') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- approvePr-branch=') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- create-all-rate-limited-prs -->') ||
+        contains(join(github.event.*.body, ''), '- [x] <!-- create-config-migration-pr -->') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- manual job -->') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- other-branch=') ||
         contains(join(github.event.*.body, ''), '- [x] <!-- rebase-all-open-prs -->') ||
@@ -86,14 +92,15 @@ jobs:
             ${{ github.event.repository.name == '.github' && !contains('["issues", "pull_request"]', github.event_name) && github.ref_name == github.event.repository.default_branch }}
           dry_run: ${{ github.event_name == 'push' && github.ref_name != github.event.repository.default_branch }}
           RENOVATE_FORK_PROCESSING: 'disabled'
-        if: github.event_name != 'push' || steps.filter.outputs.changes == 'true'
-        uses: bfra-me/renovate-action@v4
+        if: >-
+          ${{ !contains('["push", "workflow_run"]', github.event_name) || github.event.workflow_run.conclusion == 'success' || steps.filter.outputs.changes == 'true' }}
+        uses: bfra-me/renovate-action@v5
         with:
           autodiscover: ${{ env.autodiscover }}
-          branch: ${{ env.dry_run == 'true' && github.ref_name || '' }}
+          branch: ${{ (github.ref_name != github.event.repository.default_branch || env.dry_run == 'true') && ( github.head_ref || github.ref_name ) || '' }}
           cache: true
           dry-run: ${{ env.dry_run }}
-          log-level: ${{ inputs.log-level || env.WORKFLOW_LOG_LEVEL }}
+          log-level: ${{ inputs.log-level || env.autodiscover == 'true' && 'info' || env.WORKFLOW_LOG_LEVEL }}
           print-config: ${{ inputs.print-config || github.event_name == 'push' }}
           renovate-app-id: ${{ secrets.APPLICATION_ID }}
           renovate-app-private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
