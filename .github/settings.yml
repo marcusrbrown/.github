@@ -10,7 +10,7 @@ branches:
   - name: main
     protection:
       required_status_checks:
-        strict: false
+        strict: true
         contexts: ['Lint', 'Renovate']
       enforce_admins: true
       required_pull_request_reviews: null
