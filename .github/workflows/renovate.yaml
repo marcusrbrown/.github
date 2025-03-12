@@ -94,7 +94,7 @@ jobs:
           RENOVATE_FORK_PROCESSING: 'disabled'
         if: >-
           ${{ !contains('["push", "workflow_run"]', github.event_name) || github.event.workflow_run.conclusion == 'success' || steps.filter.outputs.changes == 'true' }}
-        uses: bfra-me/renovate-action@1d5b6560e904737e1e1d55449ddfb7dff5804b7f # 5.103.0
+        uses: bfra-me/renovate-action@60f9449eeefb41e7c5040297fc54c098bd734eaf # 5.104.0
         with:
           autodiscover: ${{ env.autodiscover }}
           branch: ${{ (github.ref_name != github.event.repository.default_branch || env.dry_run == 'true') && ( github.head_ref || github.ref_name ) || '' }}
