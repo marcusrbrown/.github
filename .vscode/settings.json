@@ -1,3 +1,9 @@
 {
-    "cSpell.words": ["automerge", "bfra", "marcusrbrown", "probot", "signoff", "wontfix"]
+    "cSpell.words": ["automerge", "bfra", "marcusrbrown", "probot", "signoff", "wontfix"],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
 }

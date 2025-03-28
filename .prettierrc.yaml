@@ -1,11 +1,14 @@
+arrowParens: 'avoid'
 bracketSpacing: false
 endOfLine: auto
 printWidth: 120
+semi: false
 singleQuote: true
 tabWidth: 2
 overrides:
   - files:
       - '.vscode/*.json'
+      - '.devcontainer/**/devcontainer*.json'
     options:
       tabWidth: 4
   - files:
