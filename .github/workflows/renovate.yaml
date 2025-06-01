@@ -55,7 +55,12 @@ permissions:
 jobs:
   renovate:
     name: Renovate
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: >-
+      (github.event.action == 'edited' && !contains(github.actor, '[bot]')) ||
+      (
+        !contains('["issues", "pull_request", "workflow_run"]', github.event_name) ||
+        github.event.workflow_run.conclusion == 'success'
+      )
     secrets:
       APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
       APPLICATION_PRIVATE_KEY: ${{ secrets.APPLICATION_PRIVATE_KEY }}
