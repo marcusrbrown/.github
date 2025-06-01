@@ -45,10 +45,6 @@ on:
     types: [completed]
     workflows: [main]
 
-concurrency:
-  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
