@@ -178,6 +178,78 @@ labels:
     color: '#ffffff'
     description: This will not be worked on
 
+  - name: implementation-plan
+    color: '#1d76db'
+    description: Planning and design phase for implementation
+
+  - name: feature
+    color: '#0e8a16'
+    description: New feature implementation
+
+  - name: automation
+    color: '#5319e7'
+    description: Automation scripts and workflows
+
+  - name: refactor
+    color: '#fbca04'
+    description: Code refactoring and improvements
+
+  - name: deployment
+    color: '#d93f0b'
+    description: Deployment related changes
+
+  - name: ci/cd
+    color: '#0052cc'
+    description: Continuous Integration and Deployment
+
+  - name: ci-cd
+    color: '#0052cc'
+    description: Continuous Integration and Deployment
+
+  - name: testing
+    color: '#c5def5'
+    description: Testing related changes
+
+  - name: integration
+    color: '#1d76db'
+    description: Integration with external services
+
+  - name: validation
+    color: '#bfdadc'
+    description: Data and input validation
+
+  - name: sponsors
+    color: '#ea4aaa'
+    description: GitHub Sponsors related
+
+  - name: cta
+    color: '#f9d0c4'
+    description: Call-to-action elements
+
+  - name: engagement
+    color: '#d4c5f9'
+    description: User engagement features
+
+  - name: github-actions
+    color: '#2088ff'
+    description: GitHub Actions workflows
+
+  - name: content-transformation
+    color: '#bfd4f2'
+    description: Content transformation and processing
+
+  - name: data-generation
+    color: '#c2e0c6'
+    description: Data generation utilities
+
+  - name: infrastructure
+    color: '#006b75'
+    description: Infrastructure and configuration
+
+  - name: production
+    color: '#b60205'
+    description: Production environment changes
+
 # Milestones: define milestones for Issues and Pull Requests
 # milestones:
 #   - title: milestone-title
