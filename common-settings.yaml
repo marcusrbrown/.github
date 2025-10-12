@@ -250,6 +250,82 @@ labels:
     color: '#b60205'
     description: Production environment changes
 
+  - name: metadata
+    color: '#ededed'
+    description: Metadata and configuration changes
+
+  - name: technical-debt
+    color: '#cc317c'
+    description: Technical debt that needs to be addressed
+
+  - name: code-quality
+    color: '#e99695'
+    description: Code quality improvements
+
+  - name: patch
+    color: '#d4c5f9'
+    description: Patch version changes
+
+  - name: cli-tools
+    color: '#0e8a16'
+    description: Command line tools and utilities
+
+  - name: major
+    color: '#b60205'
+    description: Major version changes
+
+  - name: minor
+    color: '#fbca04'
+    description: Minor version changes
+
+  - name: cleanup
+    color: '#fef2c0'
+    description: Code cleanup and organization
+
+  - name: automerge
+    color: '#128a0c'
+    description: Automated merge approved
+
+  - name: architecture
+    color: '#1d76db'
+    description: Architecture and design changes
+
+  - name: e2e
+    color: '#c5def5'
+    description: End-to-end testing
+
+  - name: action
+    color: '#2088ff'
+    description: GitHub Action related
+
+  - name: a11y
+    color: '#7057ff'
+    description: Accessibility improvements
+
+  - name: accessibility
+    color: '#7057ff'
+    description: Accessibility improvements
+
+  - name: maintainability
+    color: '#bfdadc'
+    description: Code maintainability improvements
+
+  - name: renovate
+    color: '#1e90ff'
+    description: Renovate bot updates
+
+  - name: lighthouse
+    color: '#f44b21'
+    description: Lighthouse performance and quality
+
+  - name: packageManager
+    color: '#84b6eb'
+    description: Package manager changes
+
+  - name: performance
+    color: '#ff6f00'
+    description: Performance improvements
+
 # Milestones: define milestones for Issues and Pull Requests
 # milestones:
 #   - title: milestone-title
