@@ -1,7 +1,7 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   description: ['Use the config preset for the .github repository'],
-  extends: ['github>marcusrbrown/renovate-config#4.3.0'],
+  extends: ['github>marcusrbrown/renovate-config#4.3.1'],
   postUpgradeTasks: {
     commands: ['npx prettier@3.8.1 --no-color --write .'],
     executionMode: 'branch',
