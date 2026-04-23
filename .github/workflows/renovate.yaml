@@ -6,7 +6,7 @@ on:
   issues:
     types: [edited]
   pull_request:
-    types: [edited]
+    types: [opened, reopened, synchronize, edited]
   push:
     branches-ignore: [main]
   # schedule:
@@ -62,4 +62,4 @@ jobs:
     uses: bfra-me/.github/.github/workflows/renovate.yaml@bedac8bd7b81a7832ae494873da2971e5ea7a8d4 # v4.16.8
     with:
       log-level: ${{ inputs.log-level || vars.WORKFLOW_LOG_LEVEL || 'debug' }}
-      print-config: ${{ inputs.print-config || github.event_name == 'push' }}
+      print-config: ${{ inputs.print-config || false }}
