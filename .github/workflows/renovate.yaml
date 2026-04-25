@@ -10,7 +10,7 @@ on:
   push:
     branches-ignore: [main]
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '15 */4 * * *' # Every 4 hours at :15 (00:15, 04:15, 08:15, 12:15, 16:15, 20:15 UTC)
   workflow_call:
     inputs:
       log-level:
