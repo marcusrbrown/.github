@@ -9,8 +9,8 @@ on:
     types: [opened, reopened, synchronize, edited]
   push:
     branches-ignore: [main]
-  # schedule:
-  #   - cron: '0 * * * *' # Run every hour
+  schedule:
+    - cron: '0 * * * *' # Run every hour
   workflow_call:
     inputs:
       log-level:
