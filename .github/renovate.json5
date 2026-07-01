@@ -3,7 +3,7 @@
   description: ['Use the config preset for the .github repository'],
   extends: ['github>marcusrbrown/renovate-config#4.5.9'],
   postUpgradeTasks: {
-    commands: ['npx prettier@3.9.0 --no-color --write .'],
+    commands: ['npx prettier@3.9.1 --no-color --write .'],
     executionMode: 'branch',
   },
   prCreation: 'immediate',
